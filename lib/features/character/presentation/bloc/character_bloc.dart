@@ -10,11 +10,9 @@ part 'character_state.dart';
 
 class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
   final GetCharactersPage getCharactersPage;
-  int currentPage = 1;
-  bool hasReachedMax = false;
-  final List<CharacterEntity> charactersList = [];
 
-  CharacterBloc({required this.getCharactersPage}) : super(CharacterInitial()) {
+  CharacterBloc({required this.getCharactersPage})
+    : super(const CharactersLoaded(characters: [], hasReachedMax: false)) {
     on<CharactersLoad>(_getCharactersList);
   }
 
@@ -22,26 +20,24 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
     CharactersLoad event,
     Emitter<CharacterState> emit,
   ) async {
-    if (hasReachedMax || state is CharacterLoading) return;
-
     final currentState = state;
-    List<CharacterEntity> oldCharacters = [];
-    if (currentState is CharactersLoaded) {
-      oldCharacters = currentState.characters;
-    }
 
-    emit(CharacterLoading(oldCharacters, isFirstFetch: currentPage == 1));
+    if (currentState is CharactersLoaded && currentState.hasReachedMax) return;
+
+    final oldCharacters =
+        currentState is CharactersLoaded ? currentState.characters : [];
+
+    final nextPage = (oldCharacters.length ~/ 20) + 1;
 
     final failureOrCharacters = await getCharactersPage(
-      CharactersParams(page: currentPage),
+      CharactersParams(page: nextPage),
     );
 
     failureOrCharacters.fold(
       (failure) => emit(CharacterFailure(message: failure.toString())),
       (charactersPage) {
         final newCharacters = charactersPage.characters;
-        hasReachedMax = charactersPage.next == null;
-        currentPage++;
+        final hasReachedMax = charactersPage.next == null;
 
         emit(
           CharactersLoaded(
