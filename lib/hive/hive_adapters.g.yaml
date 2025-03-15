@@ -5,7 +5,7 @@ nextTypeId: 2
 types:
   PageModel:
     typeId: 0
-    nextIndex: 8
+    nextIndex: 9
     fields:
       count:
         index: 0
@@ -19,6 +19,8 @@ types:
         index: 4
       pageNumber:
         index: 5
+      etag:
+        index: 8
   CharacterModel:
     typeId: 1
     nextIndex: 6

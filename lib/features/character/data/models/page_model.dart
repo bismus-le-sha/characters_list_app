@@ -9,6 +9,7 @@ class PageModel extends HiveObject {
   final String? next;
   final String? prev;
   final List<CharacterModel> characters;
+  final String? etag;
 
   PageModel({
     required this.pageNumber,
@@ -17,6 +18,7 @@ class PageModel extends HiveObject {
     this.next,
     this.prev,
     required this.characters,
+    required this.etag,
   });
 
   PageEntity toEntity() {
@@ -38,6 +40,7 @@ class PageModel extends HiveObject {
       prev: entity.prev,
       characters:
           entity.characters.map((c) => CharacterModel.fromEntity(c)).toList(),
+      etag: '',
     );
   }
 
@@ -52,6 +55,7 @@ class PageModel extends HiveObject {
           (json['results'] as List)
               .map((e) => CharacterModel.fromJson(e as Map<String, dynamic>))
               .toList(),
+      etag: '',
     );
   }
 
@@ -70,6 +74,7 @@ class PageModel extends HiveObject {
       next: next,
       prev: prev,
       characters: characters,
+      etag: etag ?? this.etag,
     );
   }
 }
