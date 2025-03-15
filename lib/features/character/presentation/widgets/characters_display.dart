@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:characters_list_app/features/character/domain/entities/character_entity.dart';
 import 'package:characters_list_app/features/character/presentation/bloc/character_bloc.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class _CharactersDisplayState extends State<CharactersDisplay> {
       height: height,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage(character.image),
+          image: CachedNetworkImageProvider(character.image),
           fit: BoxFit.cover,
         ),
       ),

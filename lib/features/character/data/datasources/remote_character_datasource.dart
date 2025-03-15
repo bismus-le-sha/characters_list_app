@@ -19,7 +19,8 @@ class RemoteCharacterDataSourceImpl implements RemoteCharacterDataSource {
     final response = await client.get(Uri.parse(Urls.getCharactersPage(page)));
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
-      return PageModel.fromJson(json);
+      final etag = response.headers['etag'];
+      return PageModel.fromJson(json).copyWith(pageNumber: page, etag: etag);
     } else {
       throw ServerException();
     }

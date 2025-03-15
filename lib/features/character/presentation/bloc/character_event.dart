@@ -8,5 +8,3 @@ abstract class CharacterEvent extends Equatable {
 }
 
 class CharactersLoad extends CharacterEvent {}
-
-class CharactersRefresh extends CharacterEvent {}

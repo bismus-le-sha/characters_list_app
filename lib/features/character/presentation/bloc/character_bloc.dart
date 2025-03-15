@@ -34,7 +34,7 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
     );
 
     failureOrCharacters.fold(
-      (failure) => emit(CharacterFailure(message: failure.toString())),
+      (failure) => emit(CharacterFailure(message: failure.message)),
       (charactersPage) {
         final newCharacters = charactersPage.characters;
         final hasReachedMax = charactersPage.next == null;

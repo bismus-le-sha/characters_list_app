@@ -1,6 +1,6 @@
 import '../constants/messages.dart';
 
-enum FailureType { serverError, connectionError, cacheError }
+enum FailureType { serverError, connectionError, cacheError, cacheEmpty }
 
 class Failure {
   final FailureType type;
@@ -22,6 +22,7 @@ class Failure {
     FailureType.serverError: SERVER_FAILURE_MESSAGE,
     FailureType.connectionError: CONNECTION_FAILURE_MESSAGE,
     FailureType.cacheError: CACHE_FAILURE_MESSAGE,
+    FailureType.cacheEmpty: CACH_EMPTY_MESSAGE,
   };
 
   factory Failure.fromType(FailureType type, {String? customMessage}) {
