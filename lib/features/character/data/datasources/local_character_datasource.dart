@@ -4,7 +4,7 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 
 abstract class LocalCharacterDataSource {
   Future<void> cachePage(PageModel pageToCache);
-  Future<PageModel> getCachedPages(int pageNumber);
+  Future<PageModel> getCachedPage(int pageNumber);
   Future<void> replaceCachedPage(PageModel page);
   Future<bool> isCacheNotEmpty();
 }
@@ -21,7 +21,7 @@ class LocalCharacterDataSourceImpl implements LocalCharacterDataSource {
   }
 
   @override
-  Future<PageModel> getCachedPages(int pageNumber) async {
+  Future<PageModel> getCachedPage(int pageNumber) async {
     final cachePage = pageBox.get(pageNumber);
     if (cachePage != null) {
       return Future.value(cachePage);

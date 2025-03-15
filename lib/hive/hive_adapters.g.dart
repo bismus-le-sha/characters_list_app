@@ -23,13 +23,14 @@ class PageModelAdapter extends TypeAdapter<PageModel> {
       next: fields[2] as String?,
       prev: fields[3] as String?,
       characters: (fields[4] as List).cast<CharacterModel>(),
+      etag: fields[8] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, PageModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.count)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class PageModelAdapter extends TypeAdapter<PageModel> {
       ..writeByte(4)
       ..write(obj.characters)
       ..writeByte(5)
-      ..write(obj.pageNumber);
+      ..write(obj.pageNumber)
+      ..writeByte(8)
+      ..write(obj.etag);
   }
 
   @override

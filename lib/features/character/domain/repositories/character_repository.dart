@@ -4,5 +4,5 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/error/failures.dart';
 
 abstract class CharacterRepository {
-  Future<Either<Failure, PageEntity>> getPage(int page);
+  Future<Either<Failure, PageEntity>> getPage(int pageNumber);
 }
