@@ -28,7 +28,8 @@ class CharactersLoaded extends CharacterState {
 class CharacterFailure extends CharacterState {
   final String message;
 
-  const CharacterFailure({required this.message}) : super();
+  const CharacterFailure({required this.message, required super.characters})
+    : super();
 
   @override
   List<Object> get props => [message, characters, hasReachedMax, isLoading];

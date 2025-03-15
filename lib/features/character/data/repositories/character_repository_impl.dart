@@ -20,17 +20,21 @@ class CharacterRepositoryImpl implements CharacterRepository {
     required this.networkInfo,
   });
 
-  Future<void> _updateCacheIfNeeded(int pageNumber) async {
-    if (await networkInfo.isConnected) {
-      try {
-        final remotePage = await remoteDataSource.getPage(pageNumber);
-        final localPage = await localDataSource.getCachedPage(pageNumber);
-        if (localPage.etag != remotePage.etag) {
-          await localDataSource.replaceCachedPage(remotePage);
-        }
-      } catch (_) {
-        debugPrint("Error while updating cache for page $pageNumber");
+  Future<Either<Failure, bool>> _updateCacheIfNeeded(int pageNumber) async {
+    try {
+      final localPage = await localDataSource.getCachedPage(pageNumber);
+      final remotePage = await remoteDataSource.getPage(pageNumber);
+
+      if (localPage.etag != remotePage.etag) {
+        await localDataSource.replaceCachedPage(remotePage);
+        debugPrint("Cache updated for page $pageNumber.");
+        return Right(true);
       }
+      debugPrint("Cache is already up to date for page $pageNumber.");
+      return Right(false);
+    } catch (_) {
+      debugPrint("Error while updating cache for page $pageNumber.");
+      return Left(Failure.fromType(FailureType.cacheUpdateError));
     }
   }
 
@@ -38,40 +42,36 @@ class CharacterRepositoryImpl implements CharacterRepository {
     int pageNumber,
   ) async {
     try {
-      final remotePages = await remoteDataSource.getPage(pageNumber);
-      await localDataSource.cachePage(remotePages);
-      return Right(remotePages.toEntity());
+      final remotePage = await remoteDataSource.getPage(pageNumber);
+      await localDataSource.cachePage(remotePage);
+      return Right(remotePage.toEntity());
     } on ServerException {
-      debugPrint("Error while fetching remote data for page $pageNumber");
+      debugPrint("Error while fetching remote data for page $pageNumber.");
       return Left(Failure.fromType(FailureType.serverError));
     }
   }
 
-  Future<Either<Failure, PageEntity>> _handleCacheError(int page) async {
+  Future<Either<Failure, PageEntity>> _handleCacheError(int pageNumber) async {
     if (await networkInfo.isConnected) {
-      return await _getRemotePageAndCache(page);
+      return _getRemotePageAndCache(pageNumber);
     }
     return Left(Failure.fromType(FailureType.connectionError));
   }
 
   @override
   Future<Either<Failure, PageEntity>> getPage(int pageNumber) async {
-    final isCacheAvailable = await localDataSource.isCacheNotEmpty();
-
-    if (isCacheAvailable) {
+    if (await localDataSource.isCacheNotEmpty()) {
       try {
-        final localPages = await localDataSource.getCachedPage(pageNumber);
-        _updateCacheIfNeeded(pageNumber);
-        return Right(localPages.toEntity());
+        final localPage = await localDataSource.getCachedPage(pageNumber);
+        if (await networkInfo.isConnected) {
+          _updateCacheIfNeeded(pageNumber);
+        }
+        return Right(localPage.toEntity());
       } on CacheException {
         return await _handleCacheError(pageNumber);
       }
     } else {
-      if (await networkInfo.isConnected) {
-        return _getRemotePageAndCache(pageNumber);
-      }
+      return await _handleCacheError(pageNumber);
     }
-
-    return Left(Failure.fromType(FailureType.cacheEmpty));
   }
 }
