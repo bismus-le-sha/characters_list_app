@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:characters_list_app/features/character/domain/entities/character_entity.dart';
 import 'package:characters_list_app/features/character/presentation/bloc/character_bloc.dart';
+import 'package:characters_list_app/features/character/presentation/widgets/character_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,7 +42,6 @@ class _CharactersDisplayState extends State<CharactersDisplay> {
 
   @override
   Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: GridView.builder(
@@ -55,23 +54,11 @@ class _CharactersDisplayState extends State<CharactersDisplay> {
         itemCount: widget.characters.length + (widget.hasReachedMax ? 0 : 1),
         itemBuilder: (context, index) {
           if (index < widget.characters.length) {
-            return cardItem(screenSize.height * 0.5, widget.characters[index]);
+            return CharacterCard(character: widget.characters[index]);
           } else {
             return const Center(child: CircularProgressIndicator());
           }
         },
-      ),
-    );
-  }
-
-  Widget cardItem(double height, CharacterEntity character) {
-    return Container(
-      height: height,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: CachedNetworkImageProvider(character.image),
-          fit: BoxFit.cover,
-        ),
       ),
     );
   }

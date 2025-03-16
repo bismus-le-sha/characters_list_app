@@ -1,9 +1,11 @@
+import 'package:auto_route/annotations.dart';
 import 'package:characters_list_app/features/character/presentation/bloc/character_bloc.dart';
 import 'package:characters_list_app/features/character/presentation/widgets/characters_display.dart';
 import 'package:characters_list_app/features/character/presentation/widgets/characters_failure_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+@RoutePage()
 class CharactersPage extends StatelessWidget {
   const CharactersPage({super.key});
 
@@ -24,7 +26,9 @@ class CharactersPage extends StatelessWidget {
               );
             }
             if (state is CharacterFailure) {
-              return CharactersFailureDisplay(failureMessage: state.message);
+              if (state.characters.isEmpty) {
+                return CharactersFailureDisplay(failureMessage: state.message);
+              }
             }
             return Center(child: CircularProgressIndicator());
           },
