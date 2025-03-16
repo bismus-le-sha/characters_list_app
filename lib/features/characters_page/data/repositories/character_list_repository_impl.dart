@@ -1,20 +1,20 @@
 import 'package:characters_list_app/core/error/failures.dart';
-import 'package:characters_list_app/features/character/data/datasources/local_character_datasource.dart';
-import 'package:characters_list_app/features/character/domain/entities/page_entity.dart';
+import 'package:characters_list_app/features/characters_page/data/datasources/local_page_datasource.dart';
+import 'package:characters_list_app/features/characters_page/domain/entities/page_entity.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/util/network/network_info.dart';
 import '../../domain/repositories/character_repository.dart';
-import '../datasources/remote_character_datasource.dart';
+import '../datasources/remote_page_datasource.dart';
 import 'package:flutter/foundation.dart';
 
-class CharacterRepositoryImpl implements CharacterRepository {
-  final RemoteCharacterDataSource remoteDataSource;
-  final LocalCharacterDataSource localDataSource;
+class CharactersPageRepositoryImpl implements CharactersPageRepository {
+  final RemoteCharactersPageDataSource remoteDataSource;
+  final LocalCharactersPageDataSource localDataSource;
   final NetworkInfo networkInfo;
 
-  CharacterRepositoryImpl({
+  CharactersPageRepositoryImpl({
     required this.remoteDataSource,
     required this.localDataSource,
     required this.networkInfo,
@@ -38,7 +38,7 @@ class CharacterRepositoryImpl implements CharacterRepository {
     }
   }
 
-  Future<Either<Failure, PageEntity>> _getRemotePageAndCache(
+  Future<Either<Failure, CharactersPageEntity>> _getRemotePageAndCache(
     int pageNumber,
   ) async {
     try {
@@ -51,7 +51,9 @@ class CharacterRepositoryImpl implements CharacterRepository {
     }
   }
 
-  Future<Either<Failure, PageEntity>> _handleCacheError(int pageNumber) async {
+  Future<Either<Failure, CharactersPageEntity>> _handleCacheError(
+    int pageNumber,
+  ) async {
     if (await networkInfo.isConnected) {
       return _getRemotePageAndCache(pageNumber);
     }
@@ -59,7 +61,7 @@ class CharacterRepositoryImpl implements CharacterRepository {
   }
 
   @override
-  Future<Either<Failure, PageEntity>> getPage(int pageNumber) async {
+  Future<Either<Failure, CharactersPageEntity>> getPage(int pageNumber) async {
     if (await localDataSource.isCacheNotEmpty()) {
       try {
         final localPage = await localDataSource.getCachedPage(pageNumber);

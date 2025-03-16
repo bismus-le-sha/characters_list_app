@@ -1,8 +1,8 @@
-import 'package:characters_list_app/features/character/domain/entities/page_entity.dart';
-import 'package:characters_list_app/features/character/data/models/character_model.dart';
+import 'package:characters_list_app/features/characters_page/domain/entities/page_entity.dart';
+import 'package:characters_list_app/features/characters_page/data/models/character_model.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 
-class PageModel extends HiveObject {
+class CharactersPageModel extends HiveObject {
   final int pageNumber;
   final int count;
   final int pages;
@@ -11,7 +11,7 @@ class PageModel extends HiveObject {
   final List<CharacterModel> characters;
   final String? etag;
 
-  PageModel({
+  CharactersPageModel({
     required this.pageNumber,
     required this.count,
     required this.pages,
@@ -21,8 +21,8 @@ class PageModel extends HiveObject {
     required this.etag,
   });
 
-  PageEntity toEntity() {
-    return PageEntity(
+  CharactersPageEntity toEntity() {
+    return CharactersPageEntity(
       count: count,
       pages: pages,
       next: next,
@@ -31,8 +31,8 @@ class PageModel extends HiveObject {
     );
   }
 
-  static PageModel fromEntity(PageEntity entity) {
-    return PageModel(
+  static CharactersPageModel fromEntity(CharactersPageEntity entity) {
+    return CharactersPageModel(
       pageNumber: -1,
       count: entity.count,
       pages: entity.pages,
@@ -44,8 +44,8 @@ class PageModel extends HiveObject {
     );
   }
 
-  factory PageModel.fromJson(Map<String, dynamic> json) {
-    return PageModel(
+  factory CharactersPageModel.fromJson(Map<String, dynamic> json) {
+    return CharactersPageModel(
       pageNumber: -1,
       count: json['info']['count'] as int,
       pages: json['info']['pages'] as int,
@@ -66,8 +66,8 @@ class PageModel extends HiveObject {
     };
   }
 
-  PageModel copyWith({int? pageNumber, String? etag}) {
-    return PageModel(
+  CharactersPageModel copyWith({int? pageNumber, String? etag}) {
+    return CharactersPageModel(
       pageNumber: pageNumber ?? this.pageNumber,
       count: count,
       pages: pages,

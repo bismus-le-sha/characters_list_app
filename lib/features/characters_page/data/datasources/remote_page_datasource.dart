@@ -1,28 +1,28 @@
 import 'package:characters_list_app/core/constants/url_handler.dart';
-import 'package:characters_list_app/features/character/data/models/page_model.dart';
+import 'package:characters_list_app/features/characters_page/data/models/page_model.dart';
 
 import '../../../../core/error/exceptions.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-abstract class RemoteCharacterDataSource {
-  Future<PageModel> getPage(int pageNumber);
+abstract class RemoteCharactersPageDataSource {
+  Future<CharactersPageModel> getPage(int pageNumber);
 }
 
-class RemoteCharacterDataSourceImpl implements RemoteCharacterDataSource {
+class RemoteCharactersDataSourceImpl implements RemoteCharactersPageDataSource {
   final http.Client client;
 
-  RemoteCharacterDataSourceImpl({required this.client});
+  RemoteCharactersDataSourceImpl({required this.client});
 
   @override
-  Future<PageModel> getPage(int pageNumber) async {
+  Future<CharactersPageModel> getPage(int pageNumber) async {
     final response = await client.get(
       Uri.parse(Urls.getCharactersPage(pageNumber)),
     );
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       final etag = response.headers['etag'];
-      return PageModel.fromJson(
+      return CharactersPageModel.fromJson(
         json,
       ).copyWith(pageNumber: pageNumber, etag: etag);
     } else {

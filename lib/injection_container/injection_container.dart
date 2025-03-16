@@ -7,14 +7,14 @@ Future<void> init() async {
   //! Features - Character
 
   // Bloc
-  sl.registerFactory(() => CharacterBloc(getCharactersPage: sl()));
+  sl.registerFactory(() => CharactersPageBloc(getCharactersPage: sl()));
 
   // Use cases
   sl.registerLazySingleton(() => GetCharactersPage(sl()));
 
   // Repository
-  sl.registerLazySingleton<CharacterRepository>(
-    () => CharacterRepositoryImpl(
+  sl.registerLazySingleton<CharactersPageRepository>(
+    () => CharactersPageRepositoryImpl(
       localDataSource: sl(),
       remoteDataSource: sl(),
       networkInfo: sl(),
@@ -22,11 +22,11 @@ Future<void> init() async {
   );
 
   // Data sources
-  sl.registerLazySingleton<RemoteCharacterDataSource>(
-    () => RemoteCharacterDataSourceImpl(client: sl()),
+  sl.registerLazySingleton<RemoteCharactersPageDataSource>(
+    () => RemoteCharactersDataSourceImpl(client: sl()),
   );
-  sl.registerLazySingleton<LocalCharacterDataSource>(
-    () => LocalCharacterDataSourceImpl(pageBox: sl()),
+  sl.registerLazySingleton<LocalCharactersPageDataSource>(
+    () => LocalCharactersPageDataSourceImpl(pageBox: sl()),
   );
 
   //! Core
@@ -41,7 +41,7 @@ Future<void> init() async {
   Hive.registerAdapter(PageModelAdapter());
   Hive.registerAdapter(CharacterModelAdapter());
 
-  final pageBox = await Hive.openBox<PageModel>(PAGE_BOX);
+  final pageBox = await Hive.openBox<CharactersPageModel>(PAGE_BOX);
   sl.registerLazySingleton(() => pageBox);
 
   //! Config

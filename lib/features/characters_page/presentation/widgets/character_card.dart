@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:characters_list_app/config/router/router.dart';
-import 'package:characters_list_app/features/character/domain/entities/character_entity.dart';
+import 'package:characters_list_app/features/characters_page/domain/entities/character_entity.dart';
 import 'package:flutter/material.dart';
 
 class CharacterCard extends StatelessWidget {
@@ -17,7 +17,7 @@ class CharacterCard extends StatelessWidget {
       },
       child: AnimatedContainer(
         clipBehavior: Clip.hardEdge,
-        duration: Duration(microseconds: 200),
+        duration: Duration(microseconds: 500),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),

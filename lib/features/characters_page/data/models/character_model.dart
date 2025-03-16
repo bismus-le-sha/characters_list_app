@@ -1,4 +1,4 @@
-import 'package:characters_list_app/features/character/domain/entities/character_entity.dart';
+import 'package:characters_list_app/features/characters_page/domain/entities/character_entity.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 
 class CharacterModel extends HiveObject {

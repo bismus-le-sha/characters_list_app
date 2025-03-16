@@ -1,14 +1,14 @@
-import 'package:characters_list_app/features/character/domain/entities/character_entity.dart';
+import 'package:characters_list_app/features/characters_page/domain/entities/character_entity.dart';
 import 'package:equatable/equatable.dart';
 
-class PageEntity extends Equatable {
+class CharactersPageEntity extends Equatable {
   final int count;
   final int pages;
   final String? next;
   final String? prev;
   final List<CharacterEntity> characters;
 
-  const PageEntity({
+  const CharactersPageEntity({
     required this.count,
     required this.pages,
     this.next,
