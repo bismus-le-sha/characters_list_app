@@ -1,10 +1,11 @@
 import 'package:http/http.dart' as http;
+
 import 'injection_container_export.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  //! Features - Character
+  //! Features - CharactersPage
 
   // Bloc
   sl.registerFactory(() => CharactersPageBloc(getCharactersPage: sl()));
@@ -18,6 +19,7 @@ Future<void> init() async {
       localDataSource: sl(),
       remoteDataSource: sl(),
       networkInfo: sl(),
+      talker: sl(),
     ),
   );
 
@@ -29,6 +31,32 @@ Future<void> init() async {
     () => LocalCharactersPageDataSourceImpl(pageBox: sl()),
   );
 
+  //! Features - Character
+
+  //Bloc
+  sl.registerFactory(
+    () => FavCharactersBloc(
+      getAllCharacters: sl(),
+      toggleFavoriteCharacter: sl(),
+      updateCharacter: sl(),
+    ),
+  );
+
+  //Use cases
+  sl.registerLazySingleton(() => GetAllCharacters(sl()));
+  sl.registerLazySingleton(() => UpdateCharacter(sl()));
+  sl.registerLazySingleton(() => ToggleFavoriteCharacter(sl()));
+
+  //Repository
+  sl.registerLazySingleton<FavCharactersRepository>(
+    () => FavCharactersRepositoryImpl(datasource: sl()),
+  );
+
+  //Data sources
+  sl.registerLazySingleton<FavCharactersDatasource>(
+    () => FavCharactersDatasourceImpl(favCharactersBox: sl()),
+  );
+
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
@@ -38,11 +66,15 @@ Future<void> init() async {
 
   //Hive
   await Hive.initFlutter();
-  Hive.registerAdapter(PageModelAdapter());
+  Hive.registerAdapter(CharactersPageModelAdapter());
   Hive.registerAdapter(CharacterModelAdapter());
 
   final pageBox = await Hive.openBox<CharactersPageModel>(PAGE_BOX);
+  final favCharactersBox = await Hive.openBox<CharacterModel>(
+    FAV_CHARACTERS_BOX,
+  );
   sl.registerLazySingleton(() => pageBox);
+  sl.registerLazySingleton(() => favCharactersBox);
 
   //! Config
   sl.registerSingleton<AppRouter>(AppRouter());

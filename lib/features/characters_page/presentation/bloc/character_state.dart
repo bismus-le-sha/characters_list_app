@@ -34,5 +34,5 @@ class CharactersPageFailure extends CharactersPageState {
   }) : super();
 
   @override
-  List<Object> get props => [message, charactersList, hasReachedMax, isLoading];
+  List<Object> get props => [message, charactersList];
 }

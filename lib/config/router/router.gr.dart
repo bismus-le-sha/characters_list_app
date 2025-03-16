@@ -78,3 +78,19 @@ class CharactersRoute extends PageRouteInfo<void> {
     },
   );
 }
+
+/// generated route for
+/// [FavCharactersPage]
+class FavCharactersRoute extends PageRouteInfo<void> {
+  const FavCharactersRoute({List<PageRouteInfo>? children})
+    : super(FavCharactersRoute.name, initialChildren: children);
+
+  static const String name = 'FavCharactersRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FavCharactersPage();
+    },
+  );
+}

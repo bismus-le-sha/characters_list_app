@@ -13,3 +13,11 @@ export '../features/characters_page/domain/repositories/character_repository.dar
 export '../features/characters_page/domain/usecases/get_characters_page.dart';
 export '../features/characters_page/presentation/bloc/character_bloc.dart';
 export 'package:talker_flutter/talker_flutter.dart';
+export '../features/fav_characters/data/models/character_model.dart';
+export 'package:characters_list_app/features/fav_characters/domain/usecases/get_character.dart';
+export 'package:characters_list_app/features/fav_characters/domain/usecases/update_character.dart';
+export '../features/fav_characters/domain/repositories/fav_characters_repository.dart';
+export 'package:characters_list_app/features/fav_characters/data/datasources/fav_characters_datasource.dart';
+export 'package:characters_list_app/features/fav_characters/data/repositories/fav_character_repository_impl.dart';
+export 'package:characters_list_app/features/fav_characters/presentation/bloc/fav_characters_bloc.dart';
+export 'package:characters_list_app/features/fav_characters/domain/usecases/toggle_favorite.dart';

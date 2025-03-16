@@ -3,37 +3,39 @@
 # Check in to version control
 nextTypeId: 2
 types:
-  PageModel:
+  CharactersPageModel:
     typeId: 0
-    nextIndex: 9
+    nextIndex: 7
     fields:
-      count:
-        index: 0
-      pages:
-        index: 1
-      next:
-        index: 2
-      prev:
-        index: 3
-      characters:
-        index: 4
       pageNumber:
+        index: 0
+      count:
+        index: 1
+      pages:
+        index: 2
+      next:
+        index: 3
+      prev:
+        index: 4
+      characters:
         index: 5
       etag:
-        index: 8
+        index: 6
   CharacterModel:
     typeId: 1
-    nextIndex: 6
+    nextIndex: 7
     fields:
-      name:
+      id:
         index: 0
-      status:
+      name:
         index: 1
-      species:
+      status:
         index: 2
-      type:
+      species:
         index: 3
-      episodes:
+      type:
         index: 4
-      image:
+      episodes:
         index: 5
+      image:
+        index: 6

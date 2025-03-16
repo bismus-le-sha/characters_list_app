@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:characters_list_app/core/constants/app_constans.dart';
-import 'package:characters_list_app/features/characters_page/domain/entities/character_entity.dart';
+import 'package:characters_list_app/features/fav_characters/domain/entities/character_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:rxdart/rxdart.dart';
 import '../../domain/usecases/get_characters_page.dart';
-import '../../domain/usecases/params/characters_params.dart';
+import '../../domain/usecases/params/characters_page_params.dart';
 
 part 'character_event.dart';
 part 'character_state.dart';

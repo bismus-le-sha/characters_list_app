@@ -8,6 +8,8 @@ class CharactersNavigationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoTabsRouter.pageView(routes: [CharactersRoute()]);
+    return AutoTabsRouter.pageView(
+      routes: [CharactersRoute(), FavCharactersRoute()],
+    );
   }
 }
