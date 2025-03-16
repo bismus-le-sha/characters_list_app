@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
-import 'package:characters_list_app/features/character/presentation/bloc/character_bloc.dart';
-import 'package:characters_list_app/features/character/presentation/widgets/characters_display.dart';
-import 'package:characters_list_app/features/character/presentation/widgets/characters_failure_display.dart';
+import 'package:characters_list_app/features/characters_page/presentation/bloc/character_bloc.dart';
+import 'package:characters_list_app/features/characters_page/presentation/widgets/characters_display.dart';
+import 'package:characters_list_app/features/characters_page/presentation/widgets/characters_failure_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,22 +11,22 @@ class CharactersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<CharacterBloc>().add(CharactersLoad());
+    context.read<CharactersPageBloc>().add(CharactersPageLoad());
     return Scaffold(
       body: SafeArea(
-        child: BlocBuilder<CharacterBloc, CharacterState>(
+        child: BlocBuilder<CharactersPageBloc, CharactersPageState>(
           builder: (context, state) {
-            if (state is CharacterInitial) {
+            if (state is CharactersPageInitial) {
               return CharactersLoadingDisplay();
             }
-            if (state is CharactersLoaded) {
+            if (state is CharactersPageLoaded) {
               return CharactersDisplay(
-                characters: state.characters,
+                characters: state.charactersList,
                 hasReachedMax: state.hasReachedMax,
               );
             }
-            if (state is CharacterFailure) {
-              if (state.characters.isEmpty) {
+            if (state is CharactersPageFailure) {
+              if (state.charactersList.isEmpty) {
                 return CharactersFailureDisplay(failureMessage: state.message);
               }
             }

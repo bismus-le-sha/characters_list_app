@@ -31,7 +31,7 @@ class CharactersFailureDisplay extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                context.read<CharacterBloc>().add(CharactersLoad());
+                context.read<CharactersPageBloc>().add(CharactersPageLoad());
               },
               child: Text("Reload"),
             ),

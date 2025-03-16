@@ -6,17 +6,17 @@ part of 'hive_adapters.dart';
 // AdaptersGenerator
 // **************************************************************************
 
-class PageModelAdapter extends TypeAdapter<PageModel> {
+class PageModelAdapter extends TypeAdapter<CharactersPageModel> {
   @override
   final int typeId = 0;
 
   @override
-  PageModel read(BinaryReader reader) {
+  CharactersPageModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return PageModel(
+    return CharactersPageModel(
       pageNumber: (fields[5] as num).toInt(),
       count: (fields[0] as num).toInt(),
       pages: (fields[1] as num).toInt(),
@@ -28,7 +28,7 @@ class PageModelAdapter extends TypeAdapter<PageModel> {
   }
 
   @override
-  void write(BinaryWriter writer, PageModel obj) {
+  void write(BinaryWriter writer, CharactersPageModel obj) {
     writer
       ..writeByte(7)
       ..writeByte(0)

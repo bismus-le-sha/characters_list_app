@@ -1,6 +1,6 @@
-import 'package:characters_list_app/features/character/domain/entities/character_entity.dart';
-import 'package:characters_list_app/features/character/presentation/bloc/character_bloc.dart';
-import 'package:characters_list_app/features/character/presentation/widgets/character_card.dart';
+import 'package:characters_list_app/features/characters_page/domain/entities/character_entity.dart';
+import 'package:characters_list_app/features/characters_page/presentation/bloc/character_bloc.dart';
+import 'package:characters_list_app/features/characters_page/presentation/widgets/character_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,7 +30,7 @@ class _CharactersDisplayState extends State<CharactersDisplay> {
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent * 0.9) {
-      context.read<CharacterBloc>().add(CharactersLoad());
+      context.read<CharactersPageBloc>().add(CharactersPageLoad());
     }
   }
 
