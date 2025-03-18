@@ -1,6 +1,6 @@
 import 'package:characters_list_app/features/fav_characters/domain/entities/character_entity.dart';
 import 'package:characters_list_app/features/characters_page/presentation/bloc/character_bloc.dart';
-import 'package:characters_list_app/features/characters_page/presentation/widgets/character_card.dart';
+import 'package:characters_list_app/core/widgets/character_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
