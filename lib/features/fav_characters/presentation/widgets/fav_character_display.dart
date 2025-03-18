@@ -1,7 +1,7 @@
 import 'package:characters_list_app/features/fav_characters/domain/entities/character_entity.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../characters_page/presentation/widgets/character_card.dart';
+import '../../../../core/widgets/character_card.dart';
 
 class FavCharacterDisplay extends StatelessWidget {
   final List<CharacterEntity> favCharactersList;
