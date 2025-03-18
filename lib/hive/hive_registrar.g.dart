@@ -8,6 +8,6 @@ import 'package:characters_list_app/hive/hive_adapters.dart';
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
     registerAdapter(CharacterModelAdapter());
-    registerAdapter(PageModelAdapter());
+    registerAdapter(CharactersPageModelAdapter());
   }
 }

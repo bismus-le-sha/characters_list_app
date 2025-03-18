@@ -1,5 +1,5 @@
 import 'package:characters_list_app/features/characters_page/domain/entities/page_entity.dart';
-import 'package:characters_list_app/features/characters_page/data/models/character_model.dart';
+import 'package:characters_list_app/features/fav_characters/data/models/character_model.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 
 class CharactersPageModel extends HiveObject {

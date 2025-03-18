@@ -1,6 +1,13 @@
 import '../constants/messages.dart';
 
-enum FailureType { serverError, connectionError, cacheUpdateError }
+enum FailureType {
+  serverError,
+  connectionError,
+  cacheUpdateError,
+  characterAlreadyExistError,
+  characterNotExistError,
+  favoriteCharacterOperationError,
+}
 
 class Failure {
   final FailureType type;
@@ -22,6 +29,10 @@ class Failure {
     FailureType.serverError: SERVER_FAILURE_MESSAGE,
     FailureType.connectionError: CONNECTION_FAILURE_MESSAGE,
     FailureType.cacheUpdateError: CACHE_UPDATE_FAILURE_MESSAGE,
+    FailureType.characterAlreadyExistError: CHARACTER_ALREADY_EXIST_MESSAGE,
+    FailureType.characterNotExistError: CHARACTER_DONT_EXIST_MESSAGE,
+    FailureType.favoriteCharacterOperationError:
+        FAV_CHARACTER_OPERATION_MESSAGE,
   };
 
   factory Failure.fromType(FailureType type, {String? customMessage}) {

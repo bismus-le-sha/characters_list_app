@@ -4,7 +4,7 @@ import 'package:characters_list_app/features/characters_page/domain/entities/pag
 import 'package:dartz/dartz.dart';
 
 import '../repositories/character_repository.dart';
-import 'params/characters_params.dart';
+import 'params/characters_page_params.dart';
 
 class GetCharactersPage
     implements UseCase<CharactersPageEntity, CharactersPageParams> {

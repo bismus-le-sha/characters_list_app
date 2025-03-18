@@ -1,6 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:characters_list_app/features/characters_page/domain/entities/character_entity.dart';
+import 'package:characters_list_app/features/fav_characters/domain/entities/character_entity.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
