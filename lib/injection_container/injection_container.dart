@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 
+import '../features/fav_characters/presentation/cubit/sort_characters_cubit.dart';
 import 'injection_container_export.dart';
 
 final sl = GetIt.instance;
@@ -9,6 +10,9 @@ Future<void> init() async {
 
   // Bloc
   sl.registerFactory(() => CharactersPageBloc(getCharactersPage: sl()));
+
+  //Cubit
+  sl.registerFactory(() => FavCharactersSortingCubit());
 
   // Use cases
   sl.registerLazySingleton(() => GetCharactersPage(sl()));
