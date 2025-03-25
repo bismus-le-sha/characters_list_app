@@ -1,6 +1,7 @@
 import 'package:characters_list_app/config/router/router.dart';
 import 'package:characters_list_app/features/characters_page/presentation/bloc/character_bloc.dart';
 import 'package:characters_list_app/features/fav_characters/presentation/bloc/fav_characters_bloc.dart';
+import 'package:characters_list_app/features/fav_characters/presentation/cubit/sort_characters_cubit.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ class RickAndMortyCharactersApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => di.sl<CharactersPageBloc>()),
         BlocProvider(create: (_) => di.sl<FavCharactersBloc>()),
+        BlocProvider(create: (_) => di.sl<FavCharactersSortingCubit>()),
       ],
       child: MaterialApp.router(
         routerConfig: di.sl<AppRouter>().config(
