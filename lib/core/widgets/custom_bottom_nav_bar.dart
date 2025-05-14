@@ -22,12 +22,14 @@ class CustomNavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildNavItem(
+              context,
               Icons.home,
               'Home',
               isSelected: currentIndex == 0,
               onTap: () => onTap(0),
             ),
             _buildNavItem(
+              context,
               Icons.favorite,
               'Favorite',
               isSelected: currentIndex == 1,
@@ -40,22 +42,29 @@ class CustomNavBar extends StatelessWidget {
   }
 
   Widget _buildNavItem(
+    BuildContext context,
     IconData icon,
     String label, {
     required bool isSelected,
     required VoidCallback onTap,
   }) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    final Color activeColor = colorScheme.primary;
+    final Color inactiveColor = colorScheme.onSurface.withAlpha(150);
+
     return GestureDetector(
       onTap: onTap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: isSelected ? Colors.black : Colors.grey),
+          Icon(icon, color: isSelected ? activeColor : inactiveColor),
+          const SizedBox(height: 4),
           Text(
             label,
             style: TextStyle(
               fontSize: 12,
-              color: isSelected ? Colors.black : Colors.grey,
+              color: isSelected ? activeColor : inactiveColor,
             ),
           ),
         ],

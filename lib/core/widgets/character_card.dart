@@ -20,6 +20,7 @@ class CharacterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final heroTag = pageViewTag + character.name;
     final double height = MediaQuery.of(context).size.height * 0.2;
     return GestureDetector(
@@ -32,7 +33,7 @@ class CharacterCard extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         duration: Duration(microseconds: 500),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -64,7 +65,7 @@ class CharacterCard extends StatelessWidget {
                   width: 30,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
+                    color: colorScheme.surface,
                   ),
                   child: IconButton(
                     padding: EdgeInsets.zero,
@@ -75,6 +76,7 @@ class CharacterCard extends StatelessWidget {
                       );
                     },
                     icon: animatedStarIcon(
+                      context: context,
                       isFavorite: isFavorite,
                       key: ValueKey(isFavorite),
                     ),
@@ -89,9 +91,14 @@ class CharacterCard extends StatelessWidget {
   }
 }
 
-Widget animatedStarIcon({required bool isFavorite, required Key key}) {
+Widget animatedStarIcon({
+  required bool isFavorite,
+  required Key key,
+  required BuildContext context,
+}) {
+  final colorScheme = Theme.of(context).colorScheme;
   return AnimatedSwitcher(
-    duration: const Duration(milliseconds: 300),
+    duration: const Duration(milliseconds: 500),
     transitionBuilder: (Widget child, Animation<double> animation) {
       final spinAnimation = Tween(begin: pi, end: 0.0).animate(animation);
 
@@ -114,7 +121,7 @@ Widget animatedStarIcon({required bool isFavorite, required Key key}) {
     child: Icon(
       isFavorite ? Icons.star : Icons.star_border,
       key: ValueKey(isFavorite),
-      color: isFavorite ? Colors.deepPurple : Colors.grey,
+      color: isFavorite ? colorScheme.secondary : Colors.grey,
     ),
   );
 }

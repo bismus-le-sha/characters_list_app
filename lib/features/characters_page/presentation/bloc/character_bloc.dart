@@ -19,7 +19,7 @@ class CharactersPageBloc
       ) {
     on<CharactersPageLoad>(
       _getCharactersList,
-      transformer: debounce(DEBOUNCE_DURATION),
+      transformer: debounce(debounceDuration),
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:characters_list_app/features/characters_page/presentation/bloc/character_bloc.dart';
 import 'package:characters_list_app/features/characters_page/presentation/widgets/characters_display.dart';
 import 'package:characters_list_app/features/characters_page/presentation/widgets/characters_failure_display.dart';
+import 'package:characters_list_app/features/characters_page/presentation/widgets/theme_toglge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,6 +14,7 @@ class CharactersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<CharactersPageBloc>().add(CharactersPageLoad());
     return Scaffold(
+      appBar: AppBar(actions: [ThemeToggle()]),
       body: SafeArea(
         child: BlocBuilder<CharactersPageBloc, CharactersPageState>(
           builder: (context, state) {

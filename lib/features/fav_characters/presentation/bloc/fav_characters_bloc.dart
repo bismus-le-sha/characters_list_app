@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:characters_list_app/features/fav_characters/domain/entities/character_entity.dart';
 import 'package:characters_list_app/features/fav_characters/domain/usecases/params/character_filter_params.dart';
 import 'package:characters_list_app/features/fav_characters/domain/usecases/params/character_params.dart';

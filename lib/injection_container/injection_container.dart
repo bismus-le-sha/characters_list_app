@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 
-import '../features/fav_characters/presentation/cubit/sort_characters_cubit.dart';
 import 'injection_container_export.dart';
 
 final sl = GetIt.instance;
@@ -73,15 +72,28 @@ Future<void> init() async {
   Hive.registerAdapter(CharactersPageModelAdapter());
   Hive.registerAdapter(CharacterModelAdapter());
 
-  final pageBox = await Hive.openBox<CharactersPageModel>(PAGE_BOX);
+  final pageBox = await Hive.openBox<CharactersPageModel>(pageBoxName);
   final favCharactersBox = await Hive.openBox<CharacterModel>(
-    FAV_CHARACTERS_BOX,
+    favCharactersBoxName,
   );
   sl.registerLazySingleton(() => pageBox);
   sl.registerLazySingleton(() => favCharactersBox);
 
   //! Config
   sl.registerSingleton<AppRouter>(AppRouter());
+
+  //! Theme
+
+  //HydratedBloc
+  final storage = await HydratedStorage.build(
+    storageDirectory: HydratedStorageDirectory(
+      (await getTemporaryDirectory()).path,
+    ),
+  );
+  HydratedBloc.storage = storage;
+
+  //Cubit
+  sl.registerSingleton<ThemeCubit>(ThemeCubit());
 
   //!Debug Talker
   sl.registerSingleton<Talker>(TalkerFlutter.init());
