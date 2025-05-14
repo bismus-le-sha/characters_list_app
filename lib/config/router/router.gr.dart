@@ -16,10 +16,15 @@ class CharacterDetailsRoute extends PageRouteInfo<CharacterDetailsRouteArgs> {
   CharacterDetailsRoute({
     Key? key,
     required CharacterEntity character,
+    required String heroTag,
     List<PageRouteInfo>? children,
   }) : super(
          CharacterDetailsRoute.name,
-         args: CharacterDetailsRouteArgs(key: key, character: character),
+         args: CharacterDetailsRouteArgs(
+           key: key,
+           character: character,
+           heroTag: heroTag,
+         ),
          initialChildren: children,
        );
 
@@ -29,21 +34,31 @@ class CharacterDetailsRoute extends PageRouteInfo<CharacterDetailsRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<CharacterDetailsRouteArgs>();
-      return CharacterDetailsPage(key: args.key, character: args.character);
+      return CharacterDetailsPage(
+        key: args.key,
+        character: args.character,
+        heroTag: args.heroTag,
+      );
     },
   );
 }
 
 class CharacterDetailsRouteArgs {
-  const CharacterDetailsRouteArgs({this.key, required this.character});
+  const CharacterDetailsRouteArgs({
+    this.key,
+    required this.character,
+    required this.heroTag,
+  });
 
   final Key? key;
 
   final CharacterEntity character;
 
+  final String heroTag;
+
   @override
   String toString() {
-    return 'CharacterDetailsRouteArgs{key: $key, character: $character}';
+    return 'CharacterDetailsRouteArgs{key: $key, character: $character, heroTag: $heroTag}';
   }
 }
 

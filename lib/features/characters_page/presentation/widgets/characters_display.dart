@@ -1,8 +1,10 @@
 import 'package:characters_list_app/features/fav_characters/domain/entities/character_entity.dart';
 import 'package:characters_list_app/features/characters_page/presentation/bloc/character_bloc.dart';
-import 'package:characters_list_app/core/widgets/character_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/widgets/character_card_with_favorite_status.dart';
+import '../../../fav_characters/presentation/bloc/fav_characters_bloc.dart';
 
 class CharactersDisplay extends StatefulWidget {
   const CharactersDisplay({
@@ -25,6 +27,7 @@ class _CharactersDisplayState extends State<CharactersDisplay> {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
+    context.read<FavCharactersBloc>().add(FavCharactersLoad());
   }
 
   void _onScroll() {
@@ -54,7 +57,12 @@ class _CharactersDisplayState extends State<CharactersDisplay> {
         itemCount: widget.characters.length + (widget.hasReachedMax ? 0 : 1),
         itemBuilder: (context, index) {
           if (index < widget.characters.length) {
-            return CharacterCard(character: widget.characters[index]);
+            var character = widget.characters[index];
+            return CharacterCardWithFavoriteStatus(
+              key: ValueKey(character.name),
+              character: character,
+              pageViewTag: 'CD',
+            );
           } else {
             return const Center(child: CircularProgressIndicator());
           }

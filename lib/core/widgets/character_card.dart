@@ -7,14 +7,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CharacterCard extends StatelessWidget {
   final CharacterEntity character;
-  const CharacterCard({super.key, required this.character});
+  final String pageViewTag;
+  final bool isFavorite;
+  const CharacterCard({
+    super.key,
+    required this.character,
+    required this.isFavorite,
+    required this.pageViewTag,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final heroTag = pageViewTag + character.name;
     final double height = MediaQuery.of(context).size.height * 0.2;
     return GestureDetector(
       onTap: () {
-        context.pushRoute(CharacterDetailsRoute(character: character));
+        context.pushRoute(
+          CharacterDetailsRoute(character: character, heroTag: heroTag),
+        );
       },
       child: AnimatedContainer(
         clipBehavior: Clip.hardEdge,
@@ -32,7 +42,7 @@ class CharacterCard extends StatelessWidget {
         ),
         child: Hero(
           transitionOnUserGestures: true,
-          tag: character.name,
+          tag: heroTag,
           child: Stack(
             children: [
               CachedNetworkImage(
@@ -47,34 +57,24 @@ class CharacterCard extends StatelessWidget {
               PositionedDirectional(
                 start: height * 0.9,
                 top: height * 0.1,
-                child:
-                    BlocSelector<FavCharactersBloc, FavCharactersState, bool>(
-                      selector: (state) {
-                        return state.favCharactersList.any(
-                          (favCharacter) => favCharacter == character,
-                        );
-                      },
-                      builder: (context, isFavorite) {
-                        return Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          child: IconButton(
-                            padding: EdgeInsets.all(0),
-                            isSelected: isFavorite,
-                            onPressed:
-                                () => context.read<FavCharactersBloc>().add(
-                                  FavCharacterToggle(character),
-                                ),
-                            icon: Icon(Icons.bookmark_border),
-                            selectedIcon: Icon(Icons.bookmark_added),
-                          ),
-                        );
-                      },
-                    ),
+                child: Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                  ),
+                  child: IconButton(
+                    padding: EdgeInsets.all(0),
+                    isSelected: isFavorite,
+                    onPressed:
+                        () => context.read<FavCharactersBloc>().add(
+                          FavCharacterToggle(character),
+                        ),
+                    icon: Icon(Icons.star_border),
+                    selectedIcon: Icon(Icons.star),
+                  ),
+                ),
               ),
             ],
           ),
