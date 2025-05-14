@@ -1,9 +1,8 @@
-import 'package:characters_list_app/features/fav_characters/presentation/cubit/sort_characters_cubit.dart';
+import 'package:characters_list_app/core/widgets/character_card_with_favorite_status.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/widgets/character_card.dart';
+import '../cubit/sort_characters_cubit.dart';
 
 class FavCharacterDisplay extends StatelessWidget {
   const FavCharacterDisplay({super.key});
@@ -23,7 +22,12 @@ class FavCharacterDisplay extends StatelessWidget {
               ),
               itemCount: state.sortedList.length,
               itemBuilder: (context, index) {
-                return CharacterCard(character: state.sortedList[index]);
+                var character = state.sortedList[index];
+                return CharacterCardWithFavoriteStatus(
+                  key: ValueKey(character.name),
+                  character: character,
+                  pageViewTag: 'FCD',
+                );
               },
             );
           }
