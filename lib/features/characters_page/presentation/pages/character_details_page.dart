@@ -6,7 +6,12 @@ import 'package:flutter/material.dart';
 @RoutePage()
 class CharacterDetailsPage extends StatelessWidget {
   final CharacterEntity character;
-  const CharacterDetailsPage({super.key, required this.character});
+  final String heroTag;
+  const CharacterDetailsPage({
+    super.key,
+    required this.character,
+    required this.heroTag,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class CharacterDetailsPage extends StatelessWidget {
               stretchModes: [StretchMode.zoomBackground],
               background: Hero(
                 transitionOnUserGestures: true,
-                tag: character.name,
+                tag: heroTag,
                 child: CachedNetworkImage(
                   imageUrl: character.image,
                   fit: BoxFit.cover,
