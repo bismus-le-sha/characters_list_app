@@ -1,3 +1,4 @@
+import 'package:characters_list_app/core/constants/app_constans.dart';
 import 'package:characters_list_app/core/widgets/character_card_with_favorite_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,7 @@ class FavCharacterDisplay extends StatelessWidget {
                 return CharacterCardWithFavoriteStatus(
                   key: ValueKey(character.name),
                   character: character,
-                  pageViewTag: 'FCD',
+                  pageViewTag: favDisplayTag,
                 );
               },
             );

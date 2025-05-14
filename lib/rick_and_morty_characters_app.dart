@@ -1,4 +1,5 @@
 import 'package:characters_list_app/config/router/router.dart';
+import 'package:characters_list_app/config/theme/cubit/theme_cubit.dart';
 import 'package:characters_list_app/features/characters_page/presentation/bloc/character_bloc.dart';
 import 'package:characters_list_app/features/fav_characters/presentation/bloc/fav_characters_bloc.dart';
 import 'package:characters_list_app/features/fav_characters/presentation/cubit/sort_characters_cubit.dart';
@@ -17,11 +18,17 @@ class RickAndMortyCharactersApp extends StatelessWidget {
         BlocProvider(create: (_) => di.sl<CharactersPageBloc>()),
         BlocProvider(create: (_) => di.sl<FavCharactersBloc>()),
         BlocProvider(create: (_) => di.sl<FavCharactersSortingCubit>()),
+        BlocProvider(create: (_) => di.sl<ThemeCubit>()),
       ],
-      child: MaterialApp.router(
-        routerConfig: di.sl<AppRouter>().config(
-          navigatorObservers: () => [TalkerRouteObserver(di.sl<Talker>())],
-        ),
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          return MaterialApp.router(
+            routerConfig: di.sl<AppRouter>().config(
+              navigatorObservers: () => [TalkerRouteObserver(di.sl<Talker>())],
+            ),
+            theme: state.themeData,
+          );
+        },
       ),
     );
   }

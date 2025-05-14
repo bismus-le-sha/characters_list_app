@@ -15,6 +15,7 @@ class CharacterDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: CustomScrollView(
@@ -41,7 +42,7 @@ class CharacterDetailsPage extends StatelessWidget {
               child: Container(
                 height: 30,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: colorScheme.surface,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
@@ -55,7 +56,7 @@ class CharacterDetailsPage extends StatelessWidget {
               Container(
                 height: screenSize.height * 0.85,
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                color: Colors.white,
+                color: colorScheme.surface,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

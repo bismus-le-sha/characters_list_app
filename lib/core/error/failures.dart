@@ -26,13 +26,12 @@ class Failure {
   int get hashCode => type.hashCode;
 
   static const Map<FailureType, String> _defaultMessages = {
-    FailureType.serverError: SERVER_FAILURE_MESSAGE,
-    FailureType.connectionError: CONNECTION_FAILURE_MESSAGE,
-    FailureType.cacheUpdateError: CACHE_UPDATE_FAILURE_MESSAGE,
-    FailureType.characterAlreadyExistError: CHARACTER_ALREADY_EXIST_MESSAGE,
-    FailureType.characterNotExistError: CHARACTER_DONT_EXIST_MESSAGE,
-    FailureType.favoriteCharacterOperationError:
-        FAV_CHARACTER_OPERATION_MESSAGE,
+    FailureType.serverError: serverFailureMessage,
+    FailureType.connectionError: connectionFailureMessage,
+    FailureType.cacheUpdateError: cacheUpdateFailureMessage,
+    FailureType.characterAlreadyExistError: characterAlreadyExistMessage,
+    FailureType.characterNotExistError: characterDontExistMessage,
+    FailureType.favoriteCharacterOperationError: favCharacterOperationMessage,
   };
 
   factory Failure.fromType(FailureType type, {String? customMessage}) {

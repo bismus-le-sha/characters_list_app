@@ -21,3 +21,7 @@ export 'package:characters_list_app/features/fav_characters/data/datasources/fav
 export 'package:characters_list_app/features/fav_characters/data/repositories/fav_character_repository_impl.dart';
 export 'package:characters_list_app/features/fav_characters/presentation/bloc/fav_characters_bloc.dart';
 export 'package:characters_list_app/features/fav_characters/domain/usecases/toggle_favorite.dart';
+export 'package:characters_list_app/config/theme/cubit/theme_cubit.dart';
+export '../features/fav_characters/presentation/cubit/sort_characters_cubit.dart';
+export 'package:hydrated_bloc/hydrated_bloc.dart';
+export 'package:path_provider/path_provider.dart';

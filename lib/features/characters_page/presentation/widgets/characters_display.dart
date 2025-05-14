@@ -1,3 +1,4 @@
+import 'package:characters_list_app/core/constants/app_constans.dart';
 import 'package:characters_list_app/features/fav_characters/domain/entities/character_entity.dart';
 import 'package:characters_list_app/features/characters_page/presentation/bloc/character_bloc.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class _CharactersDisplayState extends State<CharactersDisplay> {
             return CharacterCardWithFavoriteStatus(
               key: ValueKey(character.name),
               character: character,
-              pageViewTag: 'CD',
+              pageViewTag: characterDisplayTag,
             );
           } else {
             return const Center(child: CircularProgressIndicator());
