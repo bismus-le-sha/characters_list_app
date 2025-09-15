@@ -3,25 +3,25 @@ part of 'character_bloc.dart';
 abstract class CharactersPageState extends Equatable {
   final List<CharacterEntity> charactersList;
   final bool hasReachedMax;
-  final bool isLoading;
+  final int page;
 
   const CharactersPageState({
     this.charactersList = const [],
     this.hasReachedMax = false,
-    this.isLoading = false,
+    this.page = 0,
   });
 
   @override
-  List<Object> get props => [charactersList, hasReachedMax, isLoading];
+  List<Object> get props => [charactersList, hasReachedMax, page];
 }
 
-class CharactersPageInitial extends CharactersPageState {}
+class CharactersPageLoading extends CharactersPageState {}
 
 class CharactersPageLoaded extends CharactersPageState {
   const CharactersPageLoaded({
     required super.charactersList,
     required super.hasReachedMax,
-    super.isLoading,
+    required super.page,
   });
 }
 
@@ -31,8 +31,9 @@ class CharactersPageFailure extends CharactersPageState {
   const CharactersPageFailure({
     required this.message,
     required super.charactersList,
-  }) : super();
+    required super.page,
+  });
 
   @override
-  List<Object> get props => [message, charactersList];
+  List<Object> get props => [message, charactersList, page];
 }
