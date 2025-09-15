@@ -8,3 +8,5 @@ abstract class CharactersPageEvent extends Equatable {
 }
 
 class CharactersPageLoad extends CharactersPageEvent {}
+
+class CharactersPageLoadMore extends CharactersPageEvent {}

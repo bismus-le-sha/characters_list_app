@@ -4,7 +4,8 @@ import 'package:characters_list_app/features/characters_page/presentation/bloc/c
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/widgets/character_card_with_favorite_status.dart';
+import '../../../../core/widgets/character_card_shimmer.dart';
+import '../../../../core/widgets/characters/character_card_with_favorite_status.dart';
 import '../../../fav_characters/presentation/bloc/fav_characters_bloc.dart';
 
 class CharactersDisplay extends StatefulWidget {
@@ -34,7 +35,7 @@ class _CharactersDisplayState extends State<CharactersDisplay> {
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent * 0.9) {
-      context.read<CharactersPageBloc>().add(CharactersPageLoad());
+      context.read<CharactersPageBloc>().add(CharactersPageLoadMore());
     }
   }
 
@@ -46,6 +47,7 @@ class _CharactersDisplayState extends State<CharactersDisplay> {
 
   @override
   Widget build(BuildContext context) {
+    final double height = MediaQuery.of(context).size.height * 0.2;
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: GridView.builder(
@@ -63,9 +65,10 @@ class _CharactersDisplayState extends State<CharactersDisplay> {
               key: ValueKey(character.name),
               character: character,
               pageViewTag: characterDisplayTag,
+              height: height,
             );
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return CharacterCardShimmer(height: height, width: height);
           }
         },
       ),
