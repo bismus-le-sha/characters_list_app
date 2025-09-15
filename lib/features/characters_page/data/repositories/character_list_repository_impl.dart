@@ -30,10 +30,14 @@ class CharactersPageRepositoryImpl implements CharactersPageRepository {
       final localPage = await localDataSource.getCachedPage(pageNumber);
       final entity = localPage.toEntity();
 
-      if (await networkInfo.isConnected &&
-          await localDataSource.isCacheNotEmpty()) {
-        unawaited(_syncRemoteToLocal(pageNumber));
-      }
+      unawaited(
+        Future(() async {
+          if (await networkInfo.isConnected &&
+              await localDataSource.isCacheNotEmpty()) {
+            await _syncRemoteToLocal(pageNumber);
+          }
+        }),
+      );
 
       return Right(entity);
     } on CacheException {
