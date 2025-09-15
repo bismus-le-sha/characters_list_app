@@ -1,8 +1,7 @@
-import 'package:bloc/bloc.dart';
-import 'package:characters_list_app/core/constants/app_constans.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:characters_list_app/features/fav_characters/domain/entities/character_entity.dart';
 import 'package:equatable/equatable.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/usecases/get_characters_page.dart';
 import '../../domain/usecases/params/characters_page_params.dart';
 
@@ -14,29 +13,51 @@ class CharactersPageBloc
   final GetCharactersPage getCharactersPage;
 
   CharactersPageBloc({required this.getCharactersPage})
-    : super(
-        const CharactersPageLoaded(charactersList: [], hasReachedMax: false),
-      ) {
-    on<CharactersPageLoad>(
-      _getCharactersList,
-      transformer: debounce(debounceDuration),
-    );
+    : super(CharactersPageLoading()) {
+    on<CharactersPageLoad>(_onFetch);
+    on<CharactersPageLoadMore>(_onFetchMore, transformer: droppable());
+
+    if (state is CharactersPageLoading) add(CharactersPageLoad());
   }
 
-  Future<void> _getCharactersList(
+  Future<void> _onFetch(
     CharactersPageLoad event,
     Emitter<CharactersPageState> emit,
   ) async {
-    final currentState = state;
+    final failureOrCharacters = await getCharactersPage(
+      CharactersPageParams(pageNumber: 1),
+    );
 
-    if (currentState is CharactersPageLoaded && currentState.hasReachedMax) {
+    failureOrCharacters.fold(
+      (failure) => emit(
+        CharactersPageFailure(
+          message: failure.message,
+          charactersList: state.charactersList,
+          page: 0,
+        ),
+      ),
+      (charactersPage) {
+        emit(
+          CharactersPageLoaded(
+            charactersList: charactersPage.characters,
+            hasReachedMax: charactersPage.next == null,
+            page: 1,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onFetchMore(
+    CharactersPageLoadMore event,
+    Emitter<CharactersPageState> emit,
+  ) async {
+    final currentState = state;
+    if (currentState is! CharactersPageLoaded || currentState.hasReachedMax) {
       return;
     }
 
-    final List<CharacterEntity> oldCharacters =
-        currentState is CharactersPageLoaded ? currentState.charactersList : [];
-
-    final nextPage = (oldCharacters.length ~/ 20) + 1;
+    final nextPage = currentState.page + 1;
 
     final failureOrCharacters = await getCharactersPage(
       CharactersPageParams(pageNumber: nextPage),
@@ -46,24 +67,22 @@ class CharactersPageBloc
       (failure) => emit(
         CharactersPageFailure(
           message: failure.message,
-          charactersList: oldCharacters,
+          charactersList: currentState.charactersList,
+          page: currentState.page,
         ),
       ),
       (charactersPage) {
-        final newCharacters = charactersPage.characters;
-        final hasReachedMax = charactersPage.next == null;
-
         emit(
           CharactersPageLoaded(
-            charactersList: [...oldCharacters, ...newCharacters],
-            hasReachedMax: hasReachedMax,
+            charactersList: [
+              ...currentState.charactersList,
+              ...charactersPage.characters,
+            ],
+            hasReachedMax: charactersPage.next == null,
+            page: nextPage,
           ),
         );
       },
     );
-  }
-
-  static EventTransformer<T> debounce<T>(Duration duration) {
-    return (events, mapper) => events.debounceTime(duration).flatMap(mapper);
   }
 }

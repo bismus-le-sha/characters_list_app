@@ -12,13 +12,12 @@ class CharactersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<CharactersPageBloc>().add(CharactersPageLoad());
     return Scaffold(
       appBar: AppBar(actions: [ThemeToggle()]),
       body: SafeArea(
         child: BlocBuilder<CharactersPageBloc, CharactersPageState>(
           builder: (context, state) {
-            if (state is CharactersPageInitial) {
+            if (state is CharactersPageLoading) {
               return CharactersLoadingDisplay();
             }
             if (state is CharactersPageLoaded) {
@@ -32,7 +31,7 @@ class CharactersPage extends StatelessWidget {
                 return CharactersFailureDisplay(failureMessage: state.message);
               }
             }
-            return Center(child: CircularProgressIndicator());
+            return CharactersLoadingDisplay();
           },
         ),
       ),
