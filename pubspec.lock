@@ -524,10 +524,10 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker
-      sha256: "8dcda04c3fc16c14f48a7bb586d4be1f0d1572731b6d81d51772ef47c02081e0"
+      sha256: c35baad643ba394b40aac41080300150a4f08fd0fd6a10378f8f7c6bc161acec
       url: "https://pub.dev"
     source: hosted
-    version: "11.0.1"
+    version: "10.0.8"
   leak_tracker_flutter_testing:
     dependency: transitive
     description:
@@ -543,15 +543,7 @@ packages:
       sha256: "8d5a2d49f4a66b49744b23b018848400d23e54caf9463f4eb20df3eb8acb2eb1"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.2"
-  lean_builder:
-    dependency: transitive
-    description:
-      name: lean_builder
-      sha256: "8efb801a43b8454f214e70b173c5d81cb57795f70564c728eda352b396d8f8f6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0-alpha.11"
+    version: "3.0.1"
   lints:
     dependency: transitive
     description:
@@ -1004,15 +996,7 @@ packages:
       sha256: ab2726c1a94d3176a45960b6234466ec367179b87dd74f1611adb1f3b5fb9d55
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.7"
-  test_core:
-    dependency: transitive
-    description:
-      name: test_core
-      sha256: "0cc24b5ff94b38d2ae73e1eb43cc302b77964fbf67abad1e296025b78deb53d0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.12"
+    version: "0.7.4"
   timing:
     dependency: transitive
     description:
@@ -1174,5 +1158,5 @@ packages:
     source: hosted
     version: "2.1.0"
 sdks:
-  dart: ">=3.9.0 <4.0.0"
-  flutter: ">=3.29.0"
+  dart: ">=3.7.0 <4.0.0"
+  flutter: ">=3.27.0"
