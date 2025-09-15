@@ -4,6 +4,7 @@ import 'package:characters_list_app/features/characters_page/presentation/bloc/c
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/widgets/character_card_shimmer.dart';
 import '../../../../core/widgets/characters/character_card_with_favorite_status.dart';
 import '../../../fav_characters/presentation/bloc/fav_characters_bloc.dart';
 
@@ -67,7 +68,7 @@ class _CharactersDisplayState extends State<CharactersDisplay> {
               height: height,
             );
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return CharacterCardShimmer(height: height, width: height);
           }
         },
       ),

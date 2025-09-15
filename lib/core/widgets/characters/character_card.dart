@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:characters_list_app/core/widgets/character_card_shimmer.dart';
 import 'package:characters_list_app/core/widgets/characters/models/character_card_data_model.dart';
 import 'package:characters_list_app/injection_container/injection_container_export.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +58,12 @@ class CharacterCard extends StatelessWidget {
             CachedNetworkImage(
               imageUrl: characterCardData.character.image,
               placeholder:
-                  (context, url) =>
-                      Center(child: const CircularProgressIndicator()),
+                  (context, url) => Center(
+                    child: CardImageShimmer(
+                      height: characterCardData.height,
+                      width: characterCardData.height,
+                    ),
+                  ),
               errorWidget:
                   (context, url, error) =>
                       Center(child: const Icon(Icons.error)),
